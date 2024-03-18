@@ -4,7 +4,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { FaqsType } from "dh-marvel/components/faqs/faqsData";
 import { GetStaticProps, NextPage } from "next";
-import React from "react";
+import React, { SyntheticEvent, useState } from "react";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 /** La Página de las FAQs deberia ser la más simple de las seis.
     - Si te animás a Storybook, podes crear un componente Faqs junto con su story, para visualizarlo
@@ -21,10 +21,10 @@ interface Props {
   faqs: FaqsType[];
 }
 const Faqs: NextPage<Props> = ({ faqs }: Props) => {
-  const [expanded, setExpanded] = React.useState<string | false>(false);
+  const [expanded, setExpanded] = useState<string | false>(false);
 
   const handleChange =
-    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    (panel: string) => (event: SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
   return (
