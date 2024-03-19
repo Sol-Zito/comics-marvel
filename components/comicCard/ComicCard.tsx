@@ -7,11 +7,11 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { FC } from "react";
 import { useRouter } from "next/router";
 import { PropsCard } from "interfaces/propsCard";
 
-export const ComicCard = ({ id, image, title }: PropsCard) => {
+export const ComicCard: FC<PropsCard> = ({ id, image, title }) => {
   const router = useRouter();
   const imageUrl = `${image?.path}.${image?.extension}`;
   const handlePageChange = () => {
@@ -23,11 +23,11 @@ export const ComicCard = ({ id, image, title }: PropsCard) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 345, height: 300, backgroundColor: "grey" }}>
+    <Card sx={{ maxWidth: "auto", height: 300, backgroundColor: "grey" }}>
       <CardMedia
         component="img"
-        alt="imagen de Marvel"
-        height="140"
+        alt={`${title} image`}
+        height="180"
         image={imageUrl ? imageUrl : ""}
       />
       <CardContent>
@@ -36,31 +36,24 @@ export const ComicCard = ({ id, image, title }: PropsCard) => {
         </Typography>
       </CardContent>
 
-      <Grid
-        display="flex"
-        justifyContent="center"
-        alignSelf="center"
-        alignItems="center"
-      >
-        <CardActions>
-          <Button
-            onClick={handlePageCheckout}
-            size="small"
-            variant="contained"
-            sx={{ backgroundColor: "#ed1d24" }}
-          >
-            Comprar
-          </Button>
-          <Button
-            onClick={handlePageChange}
-            size="small"
-            variant="contained"
-            sx={{ backgroundColor: "#ed1d24" }}
-          >
-            Ver Detalle
-          </Button>
-        </CardActions>
-      </Grid>
+      <CardActions>
+        <Button
+          onClick={handlePageCheckout}
+          size="small"
+          variant="contained"
+          sx={{ backgroundColor: "GrayText" }}
+        >
+          Comprar
+        </Button>
+        <Button
+          onClick={handlePageChange}
+          size="small"
+          variant="contained"
+          sx={{ backgroundColor: "GrayText" }}
+        >
+          Ver Detalle
+        </Button>
+      </CardActions>
     </Card>
   );
 };
