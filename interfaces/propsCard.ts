@@ -1,8 +1,7 @@
+import { ImageT } from "dh-marvel/features/marvel/comics.type";
+
 export interface PropsCard {
   id: number;
   title: string;
-  image: { path: string; extension: string };
-}
-export interface PropsGrid {
-  comics: PropsCard[];
+  image: ImageT;
 }

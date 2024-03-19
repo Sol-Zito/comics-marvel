@@ -1,10 +1,8 @@
 import { Container, Grid } from "@mui/material";
 import React from "react";
-import { PropsCard } from "interfaces/propsCard";
 import { ComicCard } from "../comicCard/ComicCard";
-interface Props {
-  initialComics: PropsCard[];
-}
+import { Props } from "interfaces/propsGrid";
+
 export const ComicGrid = ({ initialComics }: Props) => {
   return (
     <Container sx={{ paddingTop: "20px", paddingBottom: "30px" }}>
@@ -20,8 +18,8 @@ export const ComicGrid = ({ initialComics }: Props) => {
               key={comic.id}
               id={comic.id}
               title={comic.title}
-              image={comic.images[0] ? comic.images[0] : comic.thumbnail}
-            ></ComicCard>
+              image={comic.images[0] ?? comic.thumbnail}
+            />
           </Grid>
         ))}
       </Grid>
