@@ -1,7 +1,7 @@
 export interface Comics {
   id: number;
   digitalId: number;
-  title: Title;
+  title: Title | string;
   issueNumber: number;
   variantDescription: string;
   description: string;
@@ -13,13 +13,13 @@ export interface Comics {
   issn: string;
   format: string;
   pageCount: number;
-  textObjects: any[];
+  textObjects: TextObject[];
   resourceURI: string;
   urls: URL[];
   series: Series;
   variants: Series[];
-  collections: any[];
-  collectedIssues: any[];
+  collections: any[] | Series[];
+  collectedIssues: any[] | Series[];
   dates: DateElement[];
   prices: Price[];
   thumbnail: ImageT;
@@ -33,17 +33,23 @@ export interface Comics {
   stock: number;
 }
 
+export interface TextObject {
+  type: string;
+  language: string;
+  text: string;
+}
+
 export enum Title {
   MarvelPreviews2017 = "Marvel Previews (2017)",
   MarvelPreviews2017Present = "Marvel Previews (2017 - Present)",
 }
 export interface Series {
   resourceURI: string;
-  name: Title;
+  name: Title | string;
 }
 export interface DateElement {
   type: string;
-  date: string;
+  date: string | Date;
 }
 
 export interface Price {
@@ -52,9 +58,9 @@ export interface Price {
 }
 export interface Characters {
   available: number;
+  returned: number;
   collectionURI: string;
   items: Item[];
-  returned: number;
 }
 export interface ImageT {
   path: string;
