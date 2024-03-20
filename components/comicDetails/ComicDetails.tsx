@@ -6,24 +6,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Comics } from "dh-marvel/features/marvel/comics.type";
-import { ButtonBase, Container, Grid, Paper, styled } from "@mui/material";
-
-/**La página deberá indicar al menos la siguiente información:
- * Nombre del comic
- * Descripción del comic
- * Imagen principal
- * Precio
- * Precio anterior
- * Botón de compra: en función de la disponibilidad de stock
- * Si hay stock, el botón debe aparecer habilitado y ser funcional
- * Si no hay stock, el botón debe estar deshabilitado y en gris, con el mensaje: Sin stock disponible
- * Lista de personajes asociados al cómic, con links a la página de cada personaje */
-const Img = styled("img")({
-  margin: "auto",
-  display: "block",
-  maxWidth: "100%",
-  maxHeight: "100%",
-});
+import { CardHeader, Container } from "@mui/material";
+import { useRouter } from "next/router";
 
 export const ComicDetails: React.FC<Comics> = ({
   title,
@@ -33,31 +17,87 @@ export const ComicDetails: React.FC<Comics> = ({
   description,
   stock,
   thumbnail,
+  pageCount,
+  textObjects,
+  collections,
+  series,
+  creators,
+  characters,
+  stories,
 }) => {
   const imageApi = images[0] ?? thumbnail;
   const imageUrl = `${imageApi?.path}.${imageApi?.extension}`;
+
+  const route = useRouter();
+
+  const handleViewCharacter = (resourceURI: string) => {
+    const id = getIdCharacter(resourceURI);
+    route.push(`/character/${id}`);
+  };
+  const getIdCharacter = (resourceURI: string) => {
+    const arr = resourceURI.split("/");
+    const idCharacter = arr[arr.length - 1];
+    return idCharacter;
+  };
 
   return (
     <Container sx={{ display: "flex", justifyContent: "center" }}>
       <Card
         sx={{
-          maxWidth: 345,
+          maxWidth: "auto",
           height: "auto",
         }}
       >
+        <CardHeader title={title} />
         <CardMedia
           component="img"
-          alt={`${title}`}
+          alt={title}
           height="auto"
           image={imageUrl ? imageUrl : ""}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {title}
+          <Typography variant="body2" color="black">
+            {description.length > 0
+              ? `Description: ${description}`
+              : `${textObjects[0]?.text.substring(0, 110)}...`}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Description: {description}
+            Pagecount: {pageCount <= 0 ? "unknown" : pageCount}
           </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Collections: {collections.length}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Series: {series.name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {creators.available >= 0
+              ? `Creator: ${creators.items[0]?.name}`
+              : `Creators: ${creators.items[0]?.name},${creators.items[1]?.name} ...`}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Stories:{stories.items.length}
+          </Typography>
+        </CardContent>
+        <CardContent>
+          {characters.items.length ? (
+            <>
+              <Typography variant="body2" color="text.secondary">
+                Characters: {characters.items.length}
+              </Typography>
+              {characters.items.map((character) => (
+                <Button
+                  onClick={() => handleViewCharacter(character.resourceURI)}
+                >
+                  {character.name}
+                </Button>
+              ))}
+            </>
+          ) : (
+            ""
+          )}
+        </CardContent>
+        <CardContent>
           <Typography
             variant="inherit"
             color="gray"
@@ -69,7 +109,9 @@ export const ComicDetails: React.FC<Comics> = ({
             Price: {price}
           </Typography>
         </CardContent>
+
         <CardActions
+          disableSpacing
           sx={{ display: "flex", justifyContent: "center", width: "100%" }}
         >
           <Button
