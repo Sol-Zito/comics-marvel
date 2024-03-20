@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Comics } from "dh-marvel/features/marvel/comics.type";
 import { CardHeader, Container } from "@mui/material";
-import { useRouter } from "next/router";
+import { CharactersList } from "./CharactersList";
 
 export const ComicDetails: React.FC<Comics> = ({
   title,
@@ -19,32 +19,17 @@ export const ComicDetails: React.FC<Comics> = ({
   thumbnail,
   pageCount,
   textObjects,
-  collections,
-  series,
   creators,
   characters,
-  stories,
 }) => {
   const imageApi = images[0] ?? thumbnail;
   const imageUrl = `${imageApi?.path}.${imageApi?.extension}`;
-
-  const route = useRouter();
-
-  const handleViewCharacter = (resourceURI: string) => {
-    const id = getIdCharacter(resourceURI);
-    route.push(`/character/${id}`);
-  };
-  const getIdCharacter = (resourceURI: string) => {
-    const arr = resourceURI.split("/");
-    const idCharacter = arr[arr.length - 1];
-    return idCharacter;
-  };
 
   return (
     <Container sx={{ display: "flex", justifyContent: "center" }}>
       <Card
         sx={{
-          maxWidth: "auto",
+          maxWidth: 500,
           height: "auto",
         }}
       >
@@ -52,52 +37,39 @@ export const ComicDetails: React.FC<Comics> = ({
         <CardMedia
           component="img"
           alt={title}
-          height="auto"
+          height="200"
           image={imageUrl ? imageUrl : ""}
         />
+        {/* seccion descripcion: */}
         <CardContent>
           <Typography variant="body2" color="black">
             {description.length > 0
               ? `Description: ${description}`
               : `${textObjects[0]?.text.substring(0, 110)}...`}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Pagecount: {pageCount <= 0 ? "unknown" : pageCount}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Collections: {collections.length}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Series: {series.name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {creators.available >= 0
-              ? `Creator: ${creators.items[0]?.name}`
-              : `Creators: ${creators.items[0]?.name},${creators.items[1]?.name} ...`}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Stories:{stories.items.length}
-          </Typography>
-        </CardContent>
-        <CardContent>
-          {characters.items.length ? (
-            <>
-              <Typography variant="body2" color="text.secondary">
-                Characters: {characters.items.length}
-              </Typography>
-              {characters.items.map((character) => (
-                <Button
-                  onClick={() => handleViewCharacter(character.resourceURI)}
-                >
-                  {character.name}
-                </Button>
-              ))}
-            </>
-          ) : (
-            ""
+
+          {pageCount > 0 && (
+            <Typography variant="body2" color="text.secondary">
+              Pagecount: {pageCount}
+            </Typography>
           )}
+          <Typography variant="body2" color="text.secondary">
+            {creators.available > 0
+              ? `Creators: ${creators.items[0]?.name}, ${creators.items[1]?.name} ...`
+              : `Creator: ${creators.items[0]?.name}.`}
+          </Typography>
         </CardContent>
-        <CardContent>
+        {/* seccion personajes: */}
+        <CharactersList {...characters} />
+        {/* seccion precio */}
+        <CardContent
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyItems: "center",
+            flexDirection: "column",
+          }}
+        >
           <Typography
             variant="inherit"
             color="gray"
@@ -105,7 +77,7 @@ export const ComicDetails: React.FC<Comics> = ({
           >
             Old price: {oldPrice}
           </Typography>
-          <Typography variant="h6" color="blue">
+          <Typography variant="h6" color="green">
             Price: {price}
           </Typography>
         </CardContent>
