@@ -9,6 +9,7 @@ import { Character } from "dh-marvel/features/marvel/characters.type";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import React from "react";
 import { useRouter } from "next/router";
+import ComicList from "./ComicList";
 
 export const CharacterCard = ({
   name,
@@ -16,6 +17,7 @@ export const CharacterCard = ({
   thumbnail,
   series,
   stories,
+  comics,
 }: Character) => {
   const route = useRouter();
   const handleClickGoBack = () => {
@@ -25,29 +27,23 @@ export const CharacterCard = ({
   return (
     <>
       <ArrowBackIcon
-        fontSize="large"
+        fontSize="medium"
         color="secondary"
         onClick={handleClickGoBack}
-        sx={{
-          cursor: "pointer",
-          "@media (max-width: 768px)": {
-            display: "none",
-          },
-        }}
       />
-
       <Container
         sx={{
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
           width: "auto",
+          height: "auto",
         }}
       >
         <Card
           sx={{
             width: "auto",
-            maxHeight: 600,
+            maxHeight: "auto",
             backgroundColor: "grey",
             display: "flex",
             justifyContent: "center",
@@ -59,7 +55,6 @@ export const CharacterCard = ({
               {name}
             </Typography>
           </CardContent>
-
           <CardContent>
             <CardMedia
               component="img"
@@ -81,6 +76,10 @@ export const CharacterCard = ({
             <Typography variant="body1" color="text.secondary">
               Stories in which appears: {stories.available}
             </Typography>
+          </CardContent>
+          {/* Comics */}
+          <CardContent>
+            <ComicList comics={comics} character={name} />
           </CardContent>
         </Card>
       </Container>
