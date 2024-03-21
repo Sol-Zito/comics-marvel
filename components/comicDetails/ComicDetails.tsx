@@ -33,15 +33,9 @@ export const ComicDetails: React.FC<Comics> = ({
   return (
     <>
       <ArrowBackIcon
-        fontSize="large"
+        fontSize="medium"
         color="secondary"
         onClick={handleClickGoBack}
-        sx={{
-          cursor: "pointer",
-          "@media (max-width: 768px)": {
-            display: "none",
-          },
-        }}
       />
       <Container sx={{ display: "flex", justifyContent: "center" }}>
         <Card
@@ -69,7 +63,7 @@ export const ComicDetails: React.FC<Comics> = ({
                   }...`}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {creators.available >= 1
+              {creators.available > 1
                 ? `Creators: ${creators.items[0]?.name}, ${
                     creators.items[1]?.name
                   }, ${creators.items[2]?.name ?? "..."}`

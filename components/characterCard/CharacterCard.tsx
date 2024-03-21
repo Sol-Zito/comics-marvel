@@ -41,14 +41,26 @@ export const CharacterCard = ({
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
+          width: "auto",
         }}
       >
-        <Card sx={{ maxWidth: 600, maxHeight: 600, backgroundColor: "grey" }}>
-          <CardContent sx={{ alignItems: "center" }}>
+        <Card
+          sx={{
+            width: "auto",
+            maxHeight: 600,
+            backgroundColor: "grey",
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+          }}
+        >
+          <CardContent>
             <Typography variant="h5" color="text.secondary">
               {name}
             </Typography>
+          </CardContent>
 
+          <CardContent>
             <CardMedia
               component="img"
               alt={`${name} image`}
