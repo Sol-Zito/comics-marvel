@@ -22,12 +22,16 @@ export const ComicDetails: React.FC<Comics> = ({
   stock,
   creators,
   characters,
+  id,
 }) => {
   const imageApi = images[0] ? images[0] : thumbnail;
   const imageUrl = `${imageApi?.path}.${imageApi?.extension}`;
   const route = useRouter();
   const handleClickGoBack = () => {
     route.back();
+  };
+  const handlePageCheckout = () => {
+    route.push(`/checkout/${id}`);
   };
 
   return (
@@ -99,7 +103,7 @@ export const ComicDetails: React.FC<Comics> = ({
           >
             <Button disabled>Stock: {stock}</Button>
             <Button
-              //   onClick={handleComprar}
+              onClick={handlePageCheckout}
               size="small"
               variant="contained"
               disabled={stock == 0}
