@@ -8,17 +8,14 @@ import {
 import { Characters } from "dh-marvel/features/marvel/comics.type";
 import React, { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 export const CharactersList = (characters: Characters) => {
   const route = useRouter();
-
   const handleViewCharacter = (resourceURI: string) => {
     const id = resourceURI.split("/").pop();
     route.push(`/personajes/${id}`);
   };
-
   const [expanded, setExpanded] = useState(false);
   const available = characters.items.length > 0;
   const handleChange = () => {

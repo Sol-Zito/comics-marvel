@@ -4,7 +4,6 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Grid,
   Typography,
 } from "@mui/material";
 import React, { FC } from "react";
@@ -28,11 +27,11 @@ export const ComicCard: FC<PropsCard> = ({ id, image, title }) => {
         component="img"
         alt={`${title} image`}
         height="180"
-        image={imageUrl ? imageUrl : ""}
+        image={imageUrl}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          {title}
+          {title.substring(0, 30)}...
         </Typography>
       </CardContent>
 
@@ -43,7 +42,7 @@ export const ComicCard: FC<PropsCard> = ({ id, image, title }) => {
           variant="contained"
           sx={{ backgroundColor: "GrayText" }}
         >
-          Comprar
+          Buy
         </Button>
         <Button
           onClick={handlePageChange}
@@ -51,7 +50,7 @@ export const ComicCard: FC<PropsCard> = ({ id, image, title }) => {
           variant="contained"
           sx={{ backgroundColor: "GrayText" }}
         >
-          Ver Detalle
+          See details
         </Button>
       </CardActions>
     </Card>

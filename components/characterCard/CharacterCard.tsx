@@ -15,6 +15,7 @@ export const CharacterCard = ({
   description,
   thumbnail,
   series,
+  stories,
 }: Character) => {
   const route = useRouter();
   const handleClickGoBack = () => {
@@ -22,42 +23,55 @@ export const CharacterCard = ({
   };
 
   return (
-    <Container sx={{ display: "flex", justifyContent: "center" }}>
-      <Card sx={{ maxWidth: 600, maxHeight: 500, backgroundColor: "grey" }}>
-        <CardContent>
-          <ArrowBackIcon
-            fontSize="large"
-            color="secondary"
-            onClick={handleClickGoBack}
-            sx={{
-              cursor: "pointer",
-              "@media (max-width: 768px)": {
-                display: "none",
-              },
-            }}
-          />
-        </CardContent>
-        <CardContent>
-          <Typography variant="h5" color="text.secondary">
-            {name}
-          </Typography>
-          <CardMedia
-            component="img"
-            alt={`${name} image`}
-            height="250"
-            image={`${thumbnail.path}.${thumbnail.extension}`}
-          />
-          <Typography variant="body1" color="text.secondary">
-            Description: {description ?? "No description available"}
-          </Typography>
-        </CardContent>
-        <CardContent>
-          <Typography>Series:</Typography>
-          {series.items.map((serie) => (
-            <Typography>{serie.name}</Typography>
-          ))}
-        </CardContent>
-      </Card>
-    </Container>
+    <>
+      <ArrowBackIcon
+        fontSize="large"
+        color="secondary"
+        onClick={handleClickGoBack}
+        sx={{
+          cursor: "pointer",
+          "@media (max-width: 768px)": {
+            display: "none",
+          },
+        }}
+      />
+
+      <Container
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+        }}
+      >
+        <Card sx={{ maxWidth: 600, maxHeight: 600, backgroundColor: "grey" }}>
+          <CardContent sx={{ alignItems: "center" }}>
+            <Typography variant="h5" color="text.secondary">
+              {name}
+            </Typography>
+
+            <CardMedia
+              component="img"
+              alt={`${name} image`}
+              image={`${thumbnail.path}.${thumbnail.extension}`}
+              sx={{ width: 300 }}
+            />
+          </CardContent>
+          <CardContent>
+            <Typography variant="body1" color="text.secondary">
+              Description:
+              {description.length > 0
+                ? description
+                : " No description available"}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Series in which appears: {series.available}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Stories in which appears: {stories.available}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Container>
+    </>
   );
 };
