@@ -45,7 +45,9 @@ const Faqs: NextPage<Props> = ({ faqs }: Props) => {
 export default Faqs;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const response = await fetch("http://localhost:3000/api/faqs");
+  const url = "https://fe3-final-project-solzitos-projects.vercel.app/api/faqs";
+  const urlLocal = "http://localhost:3000/api/faqs";
+  const response = await fetch(url);
   const faqs = await response.json();
   return {
     props: {
