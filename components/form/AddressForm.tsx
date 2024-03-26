@@ -1,0 +1,77 @@
+import React from "react";
+import CustomInput from "./InputComponent";
+import { useFormContext } from "react-hook-form";
+import { Container, Typography } from "@mui/material";
+
+const AddressForm = () => {
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
+  return (
+    <>
+      {/* Datos de envio: */}
+      <Container>
+        <CustomInput
+          name="address1"
+          label="Address"
+          type="text"
+          control={control}
+          defaultValue=""
+          placeholder="eg: Av. Corrientes 1458"
+          error={!!errors.address1}
+          messageError={errors.address1?.message as string}
+          required
+        />
+        <CustomInput
+          name="address2"
+          label="Departamento"
+          type="text"
+          control={control}
+          defaultValue=""
+          placeholder="eg: 2"
+          error={!!errors.address2}
+          messageError={errors.address2?.message as string}
+          required={false}
+        />
+        <CustomInput
+          name="state"
+          label="State"
+          type="text"
+          control={control}
+          defaultValue=""
+          placeholder="eg: Buenos Aires"
+          error={!!errors.state}
+          messageError={errors.state?.message as string}
+          required
+        />
+        <CustomInput
+          name="city"
+          label="City"
+          type="text"
+          control={control}
+          defaultValue=""
+          placeholder="eg: La plata"
+          error={!!errors.city}
+          messageError={errors.city?.message as string}
+          required
+        />
+        <CustomInput
+          name="zipCode"
+          label="Zip Code"
+          type="text"
+          control={control}
+          defaultValue=""
+          placeholder="eg: CP1256"
+          error={!!errors.zipCode}
+          messageError={errors.zipCode?.message as string}
+          required
+        />
+        <Typography variant="caption" color="error">
+          {/* <ErrorMessage name="email" errors={errors} /> */}
+        </Typography>
+      </Container>
+    </>
+  );
+};
+export default AddressForm;
