@@ -6,6 +6,7 @@ import { Container, Typography } from "@mui/material";
 const AddressForm = () => {
   const {
     control,
+    trigger,
     formState: { errors },
   } = useFormContext();
   return (
@@ -18,10 +19,13 @@ const AddressForm = () => {
           type="text"
           control={control}
           defaultValue=""
-          placeholder="eg: Av. Corrientes 1458"
+          placeholder="Av. Carrasco 5480"
           error={!!errors.address1}
           messageError={errors.address1?.message as string}
           required
+          onChange={async () => {
+            trigger("address1");
+          }}
         />
         <CustomInput
           name="address2"
@@ -29,10 +33,13 @@ const AddressForm = () => {
           type="text"
           control={control}
           defaultValue=""
-          placeholder="eg: 2"
+          placeholder="Alvear"
           error={!!errors.address2}
           messageError={errors.address2?.message as string}
           required={false}
+          onChange={async () => {
+            trigger("address2");
+          }}
         />
         <CustomInput
           name="state"
@@ -40,10 +47,13 @@ const AddressForm = () => {
           type="text"
           control={control}
           defaultValue=""
-          placeholder="eg: Buenos Aires"
+          placeholder="Santa Fe"
           error={!!errors.state}
           messageError={errors.state?.message as string}
           required
+          onChange={async () => {
+            trigger("state");
+          }}
         />
         <CustomInput
           name="city"
@@ -51,10 +61,13 @@ const AddressForm = () => {
           type="text"
           control={control}
           defaultValue=""
-          placeholder="eg: La plata"
+          placeholder="Alvear"
           error={!!errors.city}
           messageError={errors.city?.message as string}
           required
+          onChange={async () => {
+            trigger("city");
+          }}
         />
         <CustomInput
           name="zipCode"
@@ -62,10 +75,13 @@ const AddressForm = () => {
           type="text"
           control={control}
           defaultValue=""
-          placeholder="eg: CP1256"
+          placeholder="2008"
           error={!!errors.zipCode}
           messageError={errors.zipCode?.message as string}
           required
+          onChange={async () => {
+            trigger("zipcode");
+          }}
         />
         <Typography variant="caption" color="error">
           {/* <ErrorMessage name="email" errors={errors} /> */}

@@ -6,6 +6,7 @@ import { Container, Typography } from "@mui/material";
 const PersonalForm = () => {
   const {
     control,
+    trigger,
     formState: { errors },
   } = useFormContext();
   return (
@@ -20,7 +21,11 @@ const PersonalForm = () => {
           defaultValue=""
           required
           error={!!errors.name}
+          placeholder="Jose"
           messageError={errors.name?.message as string}
+          onChange={async () => {
+            trigger("name");
+          }}
         />
         <CustomInput
           name="lastName"
@@ -29,8 +34,12 @@ const PersonalForm = () => {
           control={control}
           defaultValue=""
           required
+          placeholder="Gonzales"
           error={!!errors.name}
           messageError={errors.name?.message as string}
+          onChange={async () => {
+            trigger("lastName");
+          }}
         />
         <CustomInput
           name="email"
@@ -39,8 +48,12 @@ const PersonalForm = () => {
           control={control}
           defaultValue=""
           required
+          placeholder="JoseGonzales@gmail.com"
           error={!!errors.name}
           messageError={errors.name?.message as string}
+          onChange={async () => {
+            trigger("email");
+          }}
         />
         <Typography variant="caption" color="error">
           {/* <ErrorMessage name="email" errors={errors} /> */}

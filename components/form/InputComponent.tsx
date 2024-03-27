@@ -15,6 +15,7 @@ interface CustomInputProps {
   messageError?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
+  autocomplete?: string;
 }
 
 const CustomInput = ({

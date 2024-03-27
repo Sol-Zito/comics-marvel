@@ -8,12 +8,13 @@ interface CardProps {
   number: string;
   expiry: string;
   cvc: string;
-  name: string;
+  nameOnCard: string;
   focus?: string;
 }
 const PaymentForm = () => {
   const {
     control,
+    trigger,
     formState: { errors },
   } = useFormContext();
 
@@ -21,15 +22,12 @@ const PaymentForm = () => {
     number: "",
     expiry: "",
     cvc: "",
-    name: "",
+    nameOnCard: "",
     focus: "",
   });
 
   const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = evt.target;
-    if (name == "name") {
-      setState((prev) => ({ ...prev, [name]: value.toUpperCase() }));
-    }
     setState((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -39,12 +37,21 @@ const PaymentForm = () => {
   return (
     <>
       {/* Datos de la Tarjeta: */}
-      <Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "5px",
+          margin: "15px 0px",
+        }}
+      >
         <Cards
           number={state.number}
           expiry={state.expiry}
           cvc={state.cvc}
-          name={state.name}
+          name={state.nameOnCard}
           focused={state.focus as Focused}
         />
       </Box>
@@ -52,28 +59,36 @@ const PaymentForm = () => {
         <CustomInput
           name="number"
           label="Card number"
-          type="number"
+          type="text"
           control={control}
           defaultValue={state.number}
-          placeholder="eg: 541242894230242"
+          placeholder="541242894230242"
           error={!!errors.number}
           messageError={errors.number?.message as string}
           required
-          onChange={handleInputChange}
+          onChange={async (e) => {
+            trigger("number");
+            handleInputChange(e);
+          }}
           onFocus={handleInputFocus}
+          autocomplete=""
         />
         <CustomInput
-          name="name"
+          name="nameOnCard"
           label="Holder name"
           type="text"
           control={control}
-          defaultValue={state.name}
-          placeholder="eg: Jose Lopez"
-          error={!!errors.name}
-          messageError={errors.name?.message as string}
+          defaultValue={state.nameOnCard}
+          placeholder="Jose Lopez"
+          error={!!errors.nameOnCard}
+          messageError={errors.nameOnCard?.message as string}
           required
-          onChange={handleInputChange}
+          onChange={async (e) => {
+            trigger("nameOnCard");
+            handleInputChange(e);
+          }}
           onFocus={handleInputFocus}
+          autocomplete=""
         />
         <CustomInput
           name="expiry"
@@ -81,25 +96,33 @@ const PaymentForm = () => {
           type="text"
           control={control}
           defaultValue={state.expiry}
-          placeholder="eg: 08/25"
+          placeholder="08/25"
           error={!!errors.expiry}
           messageError={errors.expiry?.message as string}
           required
-          onChange={handleInputChange}
+          onChange={async (e) => {
+            trigger("expiry");
+            handleInputChange(e);
+          }}
           onFocus={handleInputFocus}
+          autocomplete=""
         />
         <CustomInput
           name="cvc"
           label="Security code"
-          type="text"
+          type="password"
           control={control}
           defaultValue={state.cvc}
-          placeholder="eg: 123456"
+          placeholder="123456"
           error={!!errors.cvc}
           messageError={errors.cvc?.message as string}
           required
-          onChange={handleInputChange}
+          onChange={async (e) => {
+            trigger("cvc");
+            handleInputChange(e);
+          }}
           onFocus={handleInputFocus}
+          autocomplete="current-password"
         />
         <Typography variant="caption" color="error">
           {/* <ErrorMessage name="email" errors={errors} /> */}
