@@ -6,10 +6,9 @@ import {
   Typography,
 } from "@mui/material";
 import { Character } from "dh-marvel/features/marvel/characters.type";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import React from "react";
-import { useRouter } from "next/router";
 import ComicList from "./ComicList";
+import { ArrowBack } from "../arrowback/ArrowBack";
 
 export const CharacterCard = ({
   name,
@@ -19,18 +18,9 @@ export const CharacterCard = ({
   stories,
   comics,
 }: Character) => {
-  const route = useRouter();
-  const handleClickGoBack = () => {
-    route.back();
-  };
-
   return (
     <>
-      <ArrowBackIcon
-        fontSize="medium"
-        color="secondary"
-        onClick={handleClickGoBack}
-      />
+      <ArrowBack />
       <Container
         sx={{
           display: "flex",

@@ -4,12 +4,12 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Typography from "@mui/material/Typography";
 import { Comics } from "dh-marvel/features/marvel/comics.type";
 import { CardHeader, Container } from "@mui/material";
 import { CharactersList } from "./CharactersList";
 import { useRouter } from "next/router";
+import { ArrowBack } from "../arrowback/ArrowBack";
 
 export const ComicDetails: React.FC<Comics> = ({
   title,
@@ -27,20 +27,14 @@ export const ComicDetails: React.FC<Comics> = ({
   const imageApi = images[0] ? images[0] : thumbnail;
   const imageUrl = `${imageApi?.path}.${imageApi?.extension}`;
   const route = useRouter();
-  const handleClickGoBack = () => {
-    route.back();
-  };
+
   const handlePageCheckout = () => {
     route.push(`/checkout/${id}`);
   };
 
   return (
     <>
-      <ArrowBackIcon
-        fontSize="medium"
-        color="secondary"
-        onClick={handleClickGoBack}
-      />
+      <ArrowBack />
       <Container sx={{ display: "flex", justifyContent: "center" }}>
         <Card
           sx={{
