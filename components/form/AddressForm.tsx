@@ -1,7 +1,7 @@
 import React from "react";
 import CustomInput from "./InputComponent";
 import { useFormContext } from "react-hook-form";
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 
 const AddressForm = () => {
   const {
@@ -80,12 +80,9 @@ const AddressForm = () => {
           messageError={errors.zipCode?.message as string}
           required
           onChange={async () => {
-            trigger("zipcode");
+            trigger("zipCode");
           }}
         />
-        <Typography variant="caption" color="error">
-          {/* <ErrorMessage name="email" errors={errors} /> */}
-        </Typography>
       </Container>
     </>
   );

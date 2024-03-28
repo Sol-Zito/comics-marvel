@@ -29,14 +29,14 @@ const PersonalForm = () => {
         />
         <CustomInput
           name="lastName"
-          label="LastName"
+          label="lastName"
           type="text"
           control={control}
           defaultValue=""
           required
           placeholder="Gonzales"
-          error={!!errors.name}
-          messageError={errors.name?.message as string}
+          error={!!errors.lastName}
+          messageError={errors.lastName?.message as string}
           onChange={async () => {
             trigger("lastName");
           }}
@@ -49,8 +49,8 @@ const PersonalForm = () => {
           defaultValue=""
           required
           placeholder="JoseGonzales@gmail.com"
-          error={!!errors.name}
-          messageError={errors.name?.message as string}
+          error={!!errors.email}
+          messageError={errors.email?.message as string}
           onChange={async () => {
             trigger("email");
           }}

@@ -75,7 +75,7 @@ const PaymentForm = () => {
         />
         <CustomInput
           name="nameOnCard"
-          label="Holder name"
+          label="Name On Card"
           type="text"
           control={control}
           defaultValue={state.nameOnCard}
