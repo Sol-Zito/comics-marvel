@@ -15,9 +15,10 @@ import Head from "next/head";
 import {
   DataCheckout,
   changeData,
-} from "dh-marvel/components/form/DataCheckout";
+} from "dh-marvel/components/form/utils/DataCheckout";
 import { useRouter } from "next/router";
 import { CheckoutInput } from "dh-marvel/features/checkout/checkout.types";
+import { SimpleSnackbar } from "dh-marvel/components/form/utils/SanckbarComponent";
 
 interface Props {
   comic: Comics;
@@ -118,7 +119,10 @@ const CheckoutPage: NextPage<Props> = ({ comic, id }) => {
                 <FormProvider {...methods}>
                   <FormCheckout id={id} comic={comic} onSubmit={onSubmit} />
                   {errorMessage && (
-                    <Typography variant="h6">{errorMessage}</Typography>
+                    <>
+                      {/* <Typography variant="h6">{errorMessage}</Typography> */}
+                      <SimpleSnackbar message={errorMessage} status={true} />
+                    </>
                   )}
                 </FormProvider>
               </>
