@@ -40,7 +40,10 @@ export const CharactersList = (characters: Characters) => {
       </AccordionSummary>
       <AccordionDetails>
         {characters.items.map((character) => (
-          <Button onClick={() => handleViewCharacter(character.resourceURI)}>
+          <Button
+            key={character.name}
+            onClick={() => handleViewCharacter(character.resourceURI)}
+          >
             {character.name}
           </Button>
         ))}
