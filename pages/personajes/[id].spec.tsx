@@ -178,4 +178,27 @@ describe("Personajes", () => {
       expect(title).toBeInTheDocument();
     });
   });
+  describe("when rendering name", () => {
+    it("should render the title", () => {
+      render(<Index character={defaultValue} />);
+      const nombreCharacter = screen.getByText("Black Widow (Ultimate)");
+      expect(nombreCharacter).toBeInTheDocument();
+    });
+  });
+  describe("when rendering no description", () => {
+    it("should render the title", () => {
+      render(<Index character={defaultValue} />);
+      const noDescription = screen.getByText(
+        "Description: No description available"
+      );
+      expect(noDescription).toBeInTheDocument();
+    });
+  });
+  describe("when rendering cant comics", () => {
+    it("should render the title", () => {
+      render(<Index character={defaultValue} />);
+      const comics = screen.getByText("Black Widow (Ultimate)'s comics:");
+      expect(comics).toBeInTheDocument();
+    });
+  });
 });
