@@ -53,7 +53,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const paths = comics.map((comic: Comics) => ({
     params: { id: comic.id.toString() },
   }));
-  return { paths, fallback: false };
+  return { paths, fallback: "blocking" };
 };
 
 export default ComicPage;
