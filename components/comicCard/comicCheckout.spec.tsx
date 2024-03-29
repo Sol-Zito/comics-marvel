@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
+import ComicCheckout from "./ComicCheckout";
 import { Comics } from "dh-marvel/features/marvel/comics.type";
-import Index from "dh-marvel/pages/comics/[id].page";
 
-const defaultValue: Comics = {
+const comicMock: Comics = {
   id: 82967,
   digitalId: 0,
   title: "Marvel Previews (2017)",
@@ -64,21 +64,14 @@ const defaultValue: Comics = {
 describe("comic", () => {
   describe("when rendering default", () => {
     it("should render the title", () => {
-      render(<Index comicApi={defaultValue} />);
-      const title = screen.getByText("DH-Marvel");
+      render(<ComicCheckout {...comicMock} />);
+      const title = screen.getByText("Marvel Previews (2017)...");
       expect(title).toBeInTheDocument();
     });
   });
-  describe("when rendering old price", () => {
-    it("should render the title", () => {
-      render(<Index comicApi={defaultValue} />);
-      const oldPrice = screen.getByText("Old price: 89");
-      expect(oldPrice).toBeInTheDocument();
-    });
-  });
   describe("when rendering price", () => {
-    it("should render the title", () => {
-      render(<Index comicApi={defaultValue} />);
+    it("should render the price", () => {
+      render(<ComicCheckout {...comicMock} />);
       const price = screen.getByText("Price: 90");
       expect(price).toBeInTheDocument();
     });
